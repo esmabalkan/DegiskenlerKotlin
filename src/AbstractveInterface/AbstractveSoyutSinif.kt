@@ -1,16 +1,21 @@
-package Kalitim
+package AbstractveInterface
 
-open class Calisan {
+abstract open class Calisan {
 
     open var pozisyon:String="Çalışan"
+// sınıfımızda herhangi bir fonk. abstract ise sınıfta abstract olmak zorunda
+// abstract sınıflar herhangi bi gövdeye sahip olmamalı
+   abstract fun calis()
+  open fun soyutOlmayanMethod(){
 
-  open fun calis(){
+       println("Soyut olmayan method")
 
-        println("$pozisyon çalışmaya başladı")
-
-    }
-
+   }
 }
+
+
+
+
 
 open class Mudur: Calisan(){
 
@@ -20,6 +25,9 @@ open class Mudur: Calisan(){
         println("$pozisyon çalışmaya başladı")
     }
 
+    override fun soyutOlmayanMethod() {
+        println("Müdür soyut olmayan methodu override etti")
+    }
 }
 
 class GenelMudur() : Mudur(){
@@ -76,9 +84,11 @@ class Pazarlamaci: Calisan(){
 
 }
 
+fun <T> Array(size: T): Array<T> {
+    TODO("Not yet implemented")
+}
 
-
-operator fun Any.invoke(any: Any): Array<Tekerlek> {
+private operator fun Any.invoke(any: Any): Any {
     TODO("Not yet implemented")
 }
 
@@ -91,16 +101,16 @@ fun main() {
 
     var calisanlar = arrayOf<Calisan>(
 
-        Calisan(),
+        Pazarlamaci(),
         Mudur(),
         Programci(),
         Pazarlamaci(),
         GenelMudur(),
         AnalizProgramcı(),
         SistemProgramcisi()
+
     )
     mesaiyeBasla(calisanlar)
-}
 
 //    var calisanlar = Array<Calisan>(Calisan())
 //
@@ -114,14 +124,14 @@ fun main() {
 //    val Calisanlar =  String
 //    mesaiyeBaslaPoliformiz(Calisanlar)
 
-
+}
 
 fun mesaiyeBaslaPoliformiz(Calisanlar:Array<Calisan>){
 
-        for (oankiCalisan in Calisanlar){
-            oankiCalisan.calis()
+    for (oankiCalisan in Calisanlar){
+        oankiCalisan.calis()
 
-            if (oankiCalisan is SistemProgramcisi){
+        if (oankiCalisan is SistemProgramcisi){
             oankiCalisan.sistemiIncele()
         }
     }
@@ -133,10 +143,6 @@ fun mesaiyeBasla(calisanlar: Array<Calisan>) {
 
     for (oankiCalisan in calisanlar ){
         oankiCalisan.calis()
-
-        if (oankiCalisan is SistemProgramcisi){
-            oankiCalisan.sistemiIncele()
-        }
 
 //        if (oankiCalisan is Calisan ){
 //            var calisan:Calisan=oankiCalisan
